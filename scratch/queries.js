@@ -1,8 +1,8 @@
 'use strict';
 
 const knex = require('../knex');
-
-let searchTerm = 'gaga';
+//search by title
+const searchTerm = 'loony';
 knex
   .select('notes.id', 'title', 'content')
   .from('notes')
@@ -18,3 +18,40 @@ knex
   .catch(err => {
     console.error(err);
   });
+let id = 1000; 
+//find by id
+knex('notes')
+  .select()
+  .where({ id })
+  .then(results => console.log(results[0]));
+
+//update by id
+const newObj = {title: 'jsantiag attempt', content: 'wow, really trying J'}
+knex('notes')
+  .select()
+  .where({id})
+  .update(newObj)
+  .returning('*')
+  .then(results => {
+    console.log(results[0]);
+  }); 
+  
+//create new item
+const newItem = {title:'bada bing', content: 'bada boom'};
+knex('notes')
+  .insert(newItem)
+  .returning(['id', 'title', 'content'])
+  .then((results)=>{
+    Object.assign(newItem, results[0]); 
+    console.log(newItem);
+  });
+
+// //delete
+knex('notes')
+  .select()
+  .where({id})
+  .del()
+  .then(results=>{
+    console.log(results + 'deleted');
+  });
+
