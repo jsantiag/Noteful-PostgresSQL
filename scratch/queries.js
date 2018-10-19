@@ -26,7 +26,7 @@ knex('notes')
   .then(results => console.log(results[0]));
 
 //update by id
-const newObj = {title: 'jsantiag attempt', content: 'wow, really trying J'}
+const newObj = {title: 'jsantiag attempt', content: 'wow, really trying J'};
 knex('notes')
   .select()
   .where({id})
@@ -55,3 +55,8 @@ knex('notes')
     console.log(results + 'deleted');
   });
 
+
+
+const noteId = 99;
+const result = [34, 56, 78].map(tagId => ({ note_id: noteId, tag_id: tagId }));
+console.log(`insert: ${result} into notes_tags`);
